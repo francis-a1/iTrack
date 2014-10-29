@@ -11,5 +11,9 @@ package itrackui;
  * @author francis.brero
  */
 public class Action {
-    
+    public int index;
+    public String Name;
+    public String Desc;
+    public String APIActivateCall;
+    public String APICancelCall;            
 }

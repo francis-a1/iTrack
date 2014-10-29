@@ -1,0 +1,25 @@
+{
+    "Actions": {
+        "action1": {
+            "index": 1,
+            "name": "hello",
+            "desc": "says hello",
+            "activate": "www.hello.com",
+            "cancel": "www.hello.com"
+        },
+        "action2": {
+            "index": 2,
+            "name": "hungry",
+            "desc": "says faim",
+            "activate": "www.hello.com",
+            "cancel": "www.hello.com"
+        },
+        "action3": {
+            "index": 3,
+            "name": "hello",
+            "desc": "says hello",
+            "activate": "www.hello.com",
+            "cancel": "www.hello.com"
+        }
+    }
+}

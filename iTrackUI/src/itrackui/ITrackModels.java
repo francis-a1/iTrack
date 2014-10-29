@@ -7,9 +7,13 @@
 package itrackui;
 
 import java.awt.BorderLayout;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.util.List;
+
 
 /**
  *
@@ -19,12 +23,18 @@ public class ITrackModels {
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.Throwable
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Throwable {
+        
+        // Load all available actions
+        Action[] availableActions = new Action[10];                
+        availableActions = ConfigParser.getActions();
+        
         
         JFrame f = new JFrame();
         f.setLayout(new BorderLayout());
-
+        
         JPanel p = new iTrackUI();
         
         p.add(new JLabel("A Panel"));

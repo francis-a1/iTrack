@@ -6,17 +6,28 @@
 
 package itrackui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author francis.brero
  */
 public class iTrackUI extends javax.swing.JPanel {
 
+    public Action[] availableActions;
     /**
      * Creates new form MainMenu
      */
     public iTrackUI() {
-        initComponents();
+        initComponents(); 
+        //Set default Action to 0
+        //Action action = availableActions[0];
+        //jActionNameText.setText(action.Name);      
+    }
+    private void loadActionI(int index){
+        Action action = availableActions[index];
+        jActionNameText.setText(action.Name);  
     }
 
     /**
@@ -37,14 +48,35 @@ public class iTrackUI extends javax.swing.JPanel {
 
         jNextAction.setText("next");
         jNextAction.setToolTipText("");
+        jNextAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNextActionActionPerformed(evt);
+            }
+        });
 
         jPreviousAction.setText("previous");
         jPreviousAction.setToolTipText("");
+        jPreviousAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPreviousActionActionPerformed(evt);
+            }
+        });
 
         jValidateAction.setText("validate");
+        jValidateAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jValidateActionActionPerformed(evt);
+            }
+        });
 
         jCancelAction.setText("cancel");
+        jCancelAction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelActionActionPerformed(evt);
+            }
+        });
 
+        jActionNameText.setEditable(false);
         jActionNameText.setText("actionName");
         jActionNameText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,14 +128,26 @@ public class iTrackUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jCancelActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelActionActionPerformed
+        // Call API from Action to cancel
+    }//GEN-LAST:event_jCancelActionActionPerformed
+
+    private void jValidateActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValidateActionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jValidateActionActionPerformed
+
+    private void jNextActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNextActionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jNextActionActionPerformed
+
+    private void jPreviousActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPreviousActionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPreviousActionActionPerformed
+
     private void jActionNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActionNameTextActionPerformed
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_jActionNameTextActionPerformed
 
-    private void jNextActionClicked(java.awt.event.ActionEvent evt){
-    System.out.println("next");
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField jActionNameText;

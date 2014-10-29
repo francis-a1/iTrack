@@ -72,27 +72,40 @@
         <Property name="text" type="java.lang.String" value="next"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jNextActionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jPreviousAction">
       <Properties>
         <Property name="text" type="java.lang.String" value="previous"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPreviousActionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jValidateAction">
       <Properties>
         <Property name="text" type="java.lang.String" value="validate"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jValidateActionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jCancelAction">
       <Properties>
         <Property name="text" type="java.lang.String" value="cancel"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelActionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
     <Component class="javax.swing.JTextField" name="jActionNameText">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="actionName"/>
       </Properties>
       <Events>
