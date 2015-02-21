@@ -6,8 +6,12 @@
 
 package itrackui;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +27,7 @@ public class iTrackUI extends javax.swing.JPanel {
         initComponents(); 
         //Set default Action to 0
         //Action action = availableActions[0];
-        //jActionNameText.setText(action.Name);      
+        jActionNameText.setText("hello");      
     }
     private void loadActionI(int index){
         Action action = availableActions[index];
@@ -89,26 +93,28 @@ public class iTrackUI extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jPreviousAction)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jNextAction)
-                .addGap(92, 92, 92))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(384, 384, 384)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCancelAction)
-                            .addComponent(jValidateAction)))
+                        .addGap(44, 44, 44)
+                        .addComponent(jActionNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jActionNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jPreviousAction, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jValidateAction, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCancelAction, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jNextAction, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 62, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCancelAction, jNextAction, jPreviousAction, jValidateAction});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -116,32 +122,52 @@ public class iTrackUI extends javax.swing.JPanel {
                 .addComponent(jActionNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jValidateAction)
-                .addGap(167, 167, 167)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPreviousAction)
-                    .addComponent(jNextAction))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
-                .addComponent(jCancelAction)
-                .addGap(40, 40, 40))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jValidateAction, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                        .addComponent(jCancelAction, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(214, 214, 214)
+                                .addComponent(jPreviousAction, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(232, 232, 232)
+                                .addComponent(jNextAction, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCancelAction, jNextAction, jPreviousAction, jValidateAction});
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCancelActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelActionActionPerformed
         // Call API from Action to cancel
+        System.out.println("cancel");
+        MusicToastify.playPause();
     }//GEN-LAST:event_jCancelActionActionPerformed
 
     private void jValidateActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValidateActionActionPerformed
         // TODO add your handling code here:
+        System.out.println("Click");
+        MusicToastify.playPause();
     }//GEN-LAST:event_jValidateActionActionPerformed
 
     private void jNextActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNextActionActionPerformed
         // TODO add your handling code here:
+        System.out.println("Next");
+        jActionNameText.setText("VolumeUp");
+        MusicToastify.volumeUp();
     }//GEN-LAST:event_jNextActionActionPerformed
 
     private void jPreviousActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPreviousActionActionPerformed
         // TODO add your handling code here:
+        System.out.println("Previous");
+        jActionNameText.setText("actionP");
+        MusicToastify.volumeDown();
     }//GEN-LAST:event_jPreviousActionActionPerformed
 
     private void jActionNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActionNameTextActionPerformed
@@ -157,4 +183,6 @@ public class iTrackUI extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton jValidateAction;
     // End of variables declaration//GEN-END:variables
+
+
 }
