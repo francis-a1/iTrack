@@ -7,7 +7,7 @@
 package itrackui;
 
 import java.awt.AWTException;
-import java.awt.Robot;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,20 +18,39 @@ import java.util.logging.Logger;
  * @author francis.brero
  */
 public class iTrackUI extends javax.swing.JPanel {
-
-    public Action[] availableActions;
+    
     /**
      * Creates new form MainMenu
      */
     public iTrackUI() {
-        initComponents(); 
-        //Set default Action to 0
-        //Action action = availableActions[0];
-        jActionNameText.setText("hello");      
+        initComponents();                                 
     }
-    private void loadActionI(int index){
-        Action action = availableActions[index];
-        jActionNameText.setText(action.Name);  
+    
+    // Getters
+    public int iTrackUIgetImax(){
+        this.actionCnt = this.actions.size();
+        return actionCnt;
+    }
+    
+    // Setters
+    public void iTracUIsetI (int _index){
+        this.index = _index;
+    }
+    
+    public void iTracUIsetA (ArrayList<Action> _actions){
+        this.actions = _actions;
+    }
+    
+    // ********************** API
+    
+    // Reset all the values in the UI
+    public void iTrackUIrefresh(){
+        iTrackUIgetImax(); // this one is here in case we make some more actions available while running
+        Action action = Action.loadActionI(actions,index);
+        jActionNameText.setText(action.Name); 
+        jActionDescText.setText(action.Desc);  
+        // At some point we should make the functions be variables
+        
     }
 
     /**
@@ -48,6 +67,7 @@ public class iTrackUI extends javax.swing.JPanel {
         jValidateAction = new javax.swing.JButton();
         jCancelAction = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jActionDescText = new javax.swing.JTextField();
         jActionNameText = new javax.swing.JTextField();
 
         jNextAction.setText("next");
@@ -80,6 +100,14 @@ public class iTrackUI extends javax.swing.JPanel {
             }
         });
 
+        jActionDescText.setEditable(false);
+        jActionDescText.setText("Desc");
+        jActionDescText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jActionDescTextActionPerformed(evt);
+            }
+        });
+
         jActionNameText.setEditable(false);
         jActionNameText.setText("actionName");
         jActionNameText.addActionListener(new java.awt.event.ActionListener() {
@@ -93,15 +121,6 @@ public class iTrackUI extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jActionNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jPreviousAction, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -111,6 +130,20 @@ public class iTrackUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jNextAction, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 62, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(352, 352, 352)
+                        .addComponent(jActionDescText, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(54, 54, 54)
+                    .addComponent(jActionNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(1433, Short.MAX_VALUE)))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCancelAction, jNextAction, jPreviousAction, jValidateAction});
@@ -118,9 +151,9 @@ public class iTrackUI extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jActionNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
+                .addComponent(jActionDescText, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -138,6 +171,11 @@ public class iTrackUI extends javax.swing.JPanel {
                                 .addGap(232, 232, 232)
                                 .addComponent(jNextAction, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(38, 38, 38)
+                    .addComponent(jActionNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(940, Short.MAX_VALUE)))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCancelAction, jNextAction, jPreviousAction, jValidateAction});
@@ -146,29 +184,32 @@ public class iTrackUI extends javax.swing.JPanel {
 
     private void jCancelActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelActionActionPerformed
         // Call API from Action to cancel
-        System.out.println("cancel");
+        
         MusicToastify.playPause();
     }//GEN-LAST:event_jCancelActionActionPerformed
 
     private void jValidateActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValidateActionActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Click");
-        MusicToastify.playPause();
+        
+        //jValidateAction.setBackground(Color.GREEN);
+        
+        MusicToastify.playPause();        
     }//GEN-LAST:event_jValidateActionActionPerformed
 
     private void jNextActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNextActionActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Next");
-        jActionNameText.setText("VolumeUp");
-        MusicToastify.volumeUp();
+                              
+       this.index = (this.index+1)%actionCnt;
+        iTrackUIrefresh();
     }//GEN-LAST:event_jNextActionActionPerformed
 
     private void jPreviousActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPreviousActionActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Previous");
-        jActionNameText.setText("actionP");
-        MusicToastify.volumeDown();
+        // TODO add your handling code here:        
+        this.index = (this.index+actionCnt-1)%actionCnt;
+        iTrackUIrefresh();               
     }//GEN-LAST:event_jPreviousActionActionPerformed
+
+    private void jActionDescTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActionDescTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jActionDescTextActionPerformed
 
     private void jActionNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActionNameTextActionPerformed
         // TODO add your handling code here:
@@ -176,6 +217,7 @@ public class iTrackUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField jActionDescText;
     private javax.swing.JTextField jActionNameText;
     private javax.swing.JButton jCancelAction;
     private javax.swing.JButton jNextAction;
@@ -184,5 +226,11 @@ public class iTrackUI extends javax.swing.JPanel {
     private javax.swing.JButton jValidateAction;
     // End of variables declaration//GEN-END:variables
 
-
+    // UI Variables
+    private int index;
+    public ArrayList<Action> actions;
+    private int actionCnt = 1;
+    
+    // Action Variables
+   
 }

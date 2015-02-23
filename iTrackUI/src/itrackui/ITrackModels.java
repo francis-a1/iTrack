@@ -27,15 +27,19 @@ public class ITrackModels {
      */
     public static void main(String[] args) throws Throwable {
         
-        // Load all available actions
-        Action[] availableActions = new Action[10];                
-        availableActions = ConfigParser.getActions();
-        
-        
+         // Load Actions list
+        ArrayList<Action> actions = new ArrayList<Action>();
+        Action.setActionsDefault(actions);
+                
         JFrame f = new JFrame();
         f.setLayout(new BorderLayout());
         
-        JPanel p = new iTrackUI();
+        iTrackUI p = new iTrackUI();        
+        p.iTracUIsetI(0);
+        p.iTracUIsetA(actions);
+        p.iTrackUIrefresh();
+        
+        
         
         p.add(new JLabel("A Panel"));
         f.add(p, BorderLayout.CENTER);
