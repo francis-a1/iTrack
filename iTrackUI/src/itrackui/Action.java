@@ -6,6 +6,8 @@
 
 package itrackui;
 
+import static itrackui.MusicToastify.*;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +18,8 @@ public class Action {
     public int Index;
     public String Name;
     public String Desc;
-    public String APIActivateCall;
-    public String APICancelCall;            
+    public Method APIActivateCall;
+    public Method APICancelCall;            
 
     // Constructors
 
@@ -26,26 +28,44 @@ public class Action {
     
     // Setters
     
-    public Action(int index, String name, String desc, String APIActivateCall, String APICancelCall){
-        this.Index = index;
-        this.Name = name;
-        this.Desc = desc;
-        this.APIActivateCall = APIActivateCall;
-        this.APICancelCall = APICancelCall;
-        Logger.log("Action "+name+" loaded");
+    public Action(int _index, String _name, String _desc, Method _APIActivateCall, Method _APICancelCall){
+        this.Index = _index;
+        this.Name = _name;
+        this.Desc = _desc;
+        this.APIActivateCall = _APIActivateCall;
+        this.APICancelCall = _APICancelCall;
+        Logger.log("Action "+_name+" loaded");
     }
     
-    public Action(int index, String name, String desc){
-        this.Index = index;
-        this.Name = name;
-        this.Desc = desc;
-        Logger.log("Action "+name+" loaded");
+    public Action(int _index, String _name, String _desc){
+        this.Index = _index;
+        this.Name = _name;
+        this.Desc = _desc;
+        Logger.log("Action "+_name+" loaded");
     }
     
-    public static void setActionsDefault (ArrayList<Action> actions) {
-        actions.add(new Action(0,"Music", "Play,Pause your music"));
-        actions.add(new Action(1,"Logger", "will log to the console a bunch of stuff"));
-        actions.add(new Action(2,"open a browser","bla"));        
+    public void actionActivateSet(String className) throws Throwable{
+        MusicToastify music = new MusicToastify();        
+        this.APIActivateCall = music.getClass().getDeclaredMethod(className);        
+    }
+    
+    public void actionCancelSet(String className) throws Throwable{
+        MusicToastify music = new MusicToastify();        
+        this.APICancelCall = music.getClass().getDeclaredMethod(className);        
+    }
+    
+    
+    public static void setActionsDefault (ArrayList<Action> actions) throws Throwable {        
+        Action action0 = new Action(0,"Music", "Play,Pause your music");
+        action0.actionActivateSet("playPause");
+        action0.actionCancelSet("playPause");
+        actions.add(action0);
+        Action action1 = new Action(1,"Music", "Pump the volume");
+        action1.actionActivateSet("volumeUp");
+        action1.actionCancelSet("volumeDown");
+        actions.add(action1);       
+        actions.add(new Action(2,"open a browser","bla"));   
+        
     }
     
     // API

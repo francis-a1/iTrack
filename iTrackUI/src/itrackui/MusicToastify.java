@@ -15,9 +15,15 @@ import java.util.logging.Level;
  * @author francis.brero
  */
 public class MusicToastify {
+    public static Object createInstance(String ClassName) throws Throwable{
+        Class classTemp = Class.forName(ClassName);
+        Object obj = classTemp.newInstance();
+        return obj;
+    }
+    
     public static void playPause() {                                                
         // TODO add your handling code here:
-        System.out.println("Play/Pause");
+        //System.out.println("Play/Pause");
         try {
             Robot robot = new Robot();
             
@@ -35,7 +41,7 @@ public class MusicToastify {
     
     public static void volumeUp() {                                                
         
-        System.out.println("VolumeUp");
+        //System.out.println("VolumeUp");
         try {
             Robot robot = new Robot();
              // Du code Sordiiiiiiiide ctrl alt up
@@ -52,7 +58,7 @@ public class MusicToastify {
     
     public static void volumeDown() {                                                
         
-        System.out.println("VolumeUp");
+        //System.out.println("VolumeUp");
         try {
             Robot robot = new Robot();
              // Du code Sordiiiiiiiide ctrl alt down

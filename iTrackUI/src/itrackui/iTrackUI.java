@@ -6,12 +6,15 @@
 
 package itrackui;
 
+
 import java.awt.AWTException;
 import java.awt.Color;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.lang.reflect.Method;
 
 /**
  *
@@ -44,13 +47,14 @@ public class iTrackUI extends javax.swing.JPanel {
     // ********************** API
     
     // Reset all the values in the UI
-    public void iTrackUIrefresh(){
+    public void iTrackUIrefresh() throws Throwable {
         iTrackUIgetImax(); // this one is here in case we make some more actions available while running
         Action action = Action.loadActionI(actions,index);
         jActionNameText.setText(action.Name); 
         jActionDescText.setText(action.Desc);  
         // At some point we should make the functions be variables
-        
+        validate = action.APIActivateCall;
+        cancel = action.APICancelCall;
     }
 
     /**
@@ -183,28 +187,47 @@ public class iTrackUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCancelActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelActionActionPerformed
-        // Call API from Action to cancel
-        
-        MusicToastify.playPause();
+        try {       
+            cancel.invoke(cancel,null);            
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(iTrackUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(iTrackUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(iTrackUI.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }//GEN-LAST:event_jCancelActionActionPerformed
 
     private void jValidateActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jValidateActionActionPerformed
-        
-        //jValidateAction.setBackground(Color.GREEN);
-        
-        MusicToastify.playPause();        
+        try {       
+            validate.invoke(validate,null);            
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(iTrackUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(iTrackUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(iTrackUI.class.getName()).log(Level.SEVERE, null, ex);
+        }                       
     }//GEN-LAST:event_jValidateActionActionPerformed
 
     private void jNextActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNextActionActionPerformed
                               
        this.index = (this.index+1)%actionCnt;
-        iTrackUIrefresh();
+        try {
+            iTrackUIrefresh();
+        } catch (Throwable ex) {
+            Logger.getLogger(iTrackUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jNextActionActionPerformed
 
     private void jPreviousActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPreviousActionActionPerformed
         // TODO add your handling code here:        
         this.index = (this.index+actionCnt-1)%actionCnt;
-        iTrackUIrefresh();               
+        try {               
+            iTrackUIrefresh();
+        } catch (Throwable ex) {
+            Logger.getLogger(iTrackUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jPreviousActionActionPerformed
 
     private void jActionDescTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActionDescTextActionPerformed
@@ -232,5 +255,6 @@ public class iTrackUI extends javax.swing.JPanel {
     private int actionCnt = 1;
     
     // Action Variables
-   
+    private Method validate;
+    private Method cancel;
 }
